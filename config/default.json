@@ -1,5 +1,0 @@
-{
-    "jwtSecret": "bbghhnttfrrlddghha",
-    "mongoURI": "mongodb://localhost:27017/fads",
-    "otpSecret": "your-otp-secret-here"
-}

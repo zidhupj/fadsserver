@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   bcrypt: ^5.1.0
   config: ^3.3.9
+  dotenv: ^16.0.3
   express: ^4.18.2
   jsonwebtoken: ^9.0.0
   mongoose: ^6.9.2
@@ -10,6 +11,7 @@ specifiers:
 dependencies:
   bcrypt: 5.1.0
   config: 3.3.9
+  dotenv: 16.0.3
   express: 4.18.2
   jsonwebtoken: 9.0.0
   mongoose: 6.9.2
@@ -1074,6 +1076,11 @@ packages:
   /detect-libc/2.0.1:
     resolution: {integrity: sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==}
     engines: {node: '>=8'}
+    dev: false
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /ecdsa-sig-formatter/1.0.11:

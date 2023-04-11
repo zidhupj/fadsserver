@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config()
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -20,7 +21,7 @@ app.use('/package', packageRoutes);
 app.use('/cart', cartRoute);
 
 const port = process.env.PORT || 3000;
-const uri = "mongodb+srv://sidhu:q1w2e3@realmcluster.or2gk.mongodb.net/fads?retryWrites=true&w=majority";
+const uri = process.env.URI;
 
 // Connect to MongoDB server using Mongoose
 mongoose.connect(uri, {

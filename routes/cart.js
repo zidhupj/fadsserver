@@ -2,10 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Package = require('../models/package');
 const Notification = require('../models/notification');
+const { cartSecret } = require('../data/cartData');
 
 router.post('/sent-otp-for-package-retrieval', async (req, res) => {
-    const { cartNumber, cartDoorNumber } = req.body;
+    const { cartNumber, cartDoorNumber, secrectId } = req.body;
     try {
+        if (cartSecret[cartNumber] !== secretId)
+            return res.status(401).json({ message: "Cart not Authorised" });
+
         const package = await Package.findOne({ cartNumber, cartDoorNumber });
         if (!package) {
             return res.status(404).json({ message: 'Package not found' });
@@ -33,9 +37,12 @@ router.post('/sent-otp-for-package-retrieval', async (req, res) => {
 });
 
 router.post('/verify-otp-for-package-retrieval', async (req, res) => {
-    const { cartNumber, cartDoorNumber, otp } = req.body;
+    const { cartNumber, cartDoorNumber, otp, secrectId } = req.body;
 
     try {
+        if (cartSecret[cartNumber] !== secretId)
+            return res.status(401).json({ message: "Cart not Authorised" });
+
         const package = await Package.findOne({ cartNumber, cartDoorNumber });
 
         if (!package) {

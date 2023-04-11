@@ -5,11 +5,12 @@ const Notification = require('../models/notification');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
     // Get auth token and phone number
     const authToken = req.body.authToken;
     const phoneNumber = req.body.phoneNumber;
     const packageId = req.body.packageId;
+    console.log(authToken)
     const ph = verifyToken(authToken);
 
     if (phoneNumber !== ph) {
