@@ -1,5 +1,5 @@
-cartSecret = {
+let cartSecret = {
     "1": "qqmmqqwwnnee"
 };
 
-export { cartSecret };
+module.export = { cartSecret };
