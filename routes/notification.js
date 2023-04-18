@@ -2,6 +2,7 @@ const express = require('express');
 const { verifyToken } = require('../services/tokenService');
 const Package = require('../models/package');
 const Notification = require('../models/notification');
+const { cartSecret } = require('../data/cartData');
 
 const router = express.Router();
 
@@ -10,8 +11,13 @@ router.post('/', async (req, res) => {
     const authToken = req.body.authToken;
     const phoneNumber = req.body.phoneNumber;
     const packageId = req.body.packageId;
+    const cartNumber = req.body.cartNumber;
+    const secretId = req.body.secretId;
     console.log(authToken)
     const ph = verifyToken(authToken);
+
+    if (cartSecret[cartNumber] !== secretId)
+        return res.status(401).json({ message: "Cart not Authorised" });
 
     if (phoneNumber !== ph) {
         return res.status(401).json({ message: 'Unauthorized' });
@@ -31,9 +37,11 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/add-to-cart', async (req, res) => {
-    const { cartDoorNumber, cartNumber } = req.body;
+    const { cartDoorNumber, cartNumber, secretId } = req.body;
 
     try {
+        if (cartSecret[cartNumber] !== secretId)
+            return res.status(401).json({ message: "Cart not Authorised" });
         // Finding the package with the matching door number
         const package = await Package.findOne({ cartDoorNumber, cartNumber });
 
@@ -66,8 +74,12 @@ router.post('/add-to-cart', async (req, res) => {
 
 // Sub route for adding a notification to a package
 router.post('/add-notification', async (req, res) => {
-    const { cartNumber, message } = req.body;
+    const { cartNumber, message, secretId } = req.body;
     try {
+
+        if (cartSecret[cartNumber] !== secretId)
+            return res.status(401).json({ message: "Cart not Authorised" });
+
         const packages = await Package.find({ cartNumber });
         const notifications = await Promise.all(packages.map(async (pkg) => {
             const notification = new Notification({ message, packageId: pkg._id, status: 'unread' });
@@ -84,8 +96,12 @@ router.post('/add-notification', async (req, res) => {
 });
 
 router.post('/arrived-at-destination', async (req, res) => {
-    const { cartNumber } = req.body;
+    const { cartNumber, secretId } = req.body;
     try {
+
+        if (cartSecret[cartNumber] !== secretId)
+            return res.status(401).json({ message: "Cart not Authorised" });
+
         // Find all packages associated with the given cart number
         const packages = await Package.find({ cartNumber });
 
