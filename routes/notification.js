@@ -2,9 +2,12 @@ const express = require('express');
 const { verifyToken } = require('../services/tokenService');
 const Package = require('../models/package');
 const Notification = require('../models/notification');
-const { cartSecret } = require('../data/cartData');
 
 const router = express.Router();
+
+let cartSecret = {
+    "1": "qqmmqqwwnnee"
+};
 
 router.post('/', async (req, res) => {
     // Get auth token and phone number
@@ -40,8 +43,9 @@ router.post('/add-to-cart', async (req, res) => {
     const { cartDoorNumber, cartNumber, secretId } = req.body;
 
     try {
-        if (cartSecret[cartNumber] !== secretId)
+        if (cartSecret[cartNumber] !== secretId) {
             return res.status(401).json({ message: "Cart not Authorised" });
+        }
         // Finding the package with the matching door number
         const package = await Package.findOne({ cartDoorNumber, cartNumber });
 

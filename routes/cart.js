@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Package = require('../models/package');
 const Notification = require('../models/notification');
-const { cartSecret } = require('../data/cartData');
+
+let cartSecret = {
+    "1": "qqmmqqwwnnee"
+};
 
 router.post('/sent-otp-for-package-retrieval', async (req, res) => {
     const { cartNumber, cartDoorNumber, secretId } = req.body;
