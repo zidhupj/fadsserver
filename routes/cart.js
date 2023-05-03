@@ -5,7 +5,7 @@ const Notification = require('../models/notification');
 const { cartSecret } = require('../data/cartData');
 
 router.post('/sent-otp-for-package-retrieval', async (req, res) => {
-    const { cartNumber, cartDoorNumber, secrectId } = req.body;
+    const { cartNumber, cartDoorNumber, secretId } = req.body;
     try {
         if (cartSecret[cartNumber] !== secretId)
             return res.status(401).json({ message: "Cart not Authorised" });
@@ -37,7 +37,7 @@ router.post('/sent-otp-for-package-retrieval', async (req, res) => {
 });
 
 router.post('/verify-otp-for-package-retrieval', async (req, res) => {
-    const { cartNumber, cartDoorNumber, otp, secrectId } = req.body;
+    const { cartNumber, cartDoorNumber, otp, secretId } = req.body;
 
     try {
         if (cartSecret[cartNumber] !== secretId)
