@@ -40,6 +40,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/add-to-cart', async (req, res) => {
+    console.log("post request from client");
     const { cartDoorNumber, cartNumber, secretId } = req.body;
 
     try {
