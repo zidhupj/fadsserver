@@ -80,6 +80,7 @@ router.post('/add-to-cart', async (req, res) => {
 // Sub route for adding a notification to a package
 router.post('/add-notification', async (req, res) => {
     const { cartNumber, message, secretId } = req.body;
+    console.log("trying to send general notification to all packages in cart " + cartNumber);
     try {
 
         if (cartSecret[cartNumber] !== secretId)
@@ -102,6 +103,7 @@ router.post('/add-notification', async (req, res) => {
 
 router.post('/arrived-at-destination', async (req, res) => {
     const { cartNumber, secretId } = req.body;
+    console.log("trying to send notification of package arrival to all packages in cart " + cartNumber);
     try {
 
         if (cartSecret[cartNumber] !== secretId)
