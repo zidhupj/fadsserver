@@ -6,8 +6,11 @@ const Notification = require('../models/notification');
 const tokenService = require('../services/tokenService');
 
 router.post('/register-package', async (req, res) => {
-    const { phoneNumber, destination, cartDoorNumber, cartNumber } = req.body;
+    const { phoneNumber, destination, cartDoorNumber, cartNumber, adminSecret } = req.body;
     console.log(destination);
+    if (adminSecret !== process.env.ADMIN_SECRET) {
+        return res.status(401).json({ message: "you are not authorised to do this action" })
+    }
     if (!['bhostel1', 'bhostel2', 'ghostel1'].includes(destination)) {
         return res.status(400).json({ message: 'Invalid destination.' });
     }

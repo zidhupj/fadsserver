@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config()
 
@@ -12,6 +13,7 @@ const cartRoute = require('./routes/cart');
 const app = express();
 
 // Set up middleware
+app.use(cors());
 app.use(express.json());
 
 // Set up routes
